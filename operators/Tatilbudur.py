@@ -90,6 +90,7 @@ class Tatilbudur:
         roomCount = response.xpath("(//div[@class='room-type-new' and @id])").__len__()
         result = []
         for i in range(1, roomCount):
+            contracts = []
             roomName = \
                 response.xpath("(//div[@class='room-type-new' and @id])[" + str(i) + "]/div[@class='row']/div[1]/h3")[
                     0].text
@@ -125,7 +126,6 @@ class Tatilbudur:
                 discount = response.xpath("(//div[@class='room-type-new' and @id])//div[contains(@class,'discount')]")[
                     0].text.strip()
 
-                contracts = []
                 if self.withPerPerson == "1" and warning_div == "null":
                     linkContract = WebDriverWait(driver, 10).until(
                         EC.presence_of_element_located((By.XPATH, "((//div[@class='room-type-new' and @id])[" + str(
