@@ -25,7 +25,7 @@ class Tatilbudur:
 
         locale.setlocale(locale.LC_ALL, 'tr_TR.UTF-8')
         proxy = "eacmyfza-TR-rotate:lngjl9ol3y0vx@p.webshare.io:80"
-        driver = Driver(uc=True, headless=True, proxy=proxy)
+        driver = Driver(uc=True, headless=True, proxy=proxy, chromium_arg="--blink-settings=imagesEnabled=false --no-sandbox --disable-dev-shm-usage")
         driver.get(self.url)
         time.sleep(1)
 

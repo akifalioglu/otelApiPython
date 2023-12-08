@@ -26,7 +26,7 @@ class Hotels:
         self.currency = currency
 
     def get_hotel_info(self):
-        driver = Driver(uc=True, headless=True, chromium_arg="--blink-settings=imagesEnabled=false")
+        driver = Driver(uc=True, headless=True, chromium_arg="--blink-settings=imagesEnabled=false --no-sandbox --disable-dev-shm-usage")
         driver.get(self.url)
         self.get_hotel_details(driver)
 
