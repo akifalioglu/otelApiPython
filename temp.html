@@ -1,0 +1,44 @@
+
+<html>
+
+<button id = "selenium">
+    Selenium Start
+</button>
+
+
+
+<script>
+    // WARNING: For POST requests, body is set to null by browsers.
+var data = "{\r\n    \"deneme\": \"deneme\"\r\n}";
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function() {
+  if(this.readyState === 4) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://analytic.travelpratic.com/api/json");
+xhr.setRequestHeader("authority", "www.tatilbudur.com");
+xhr.setRequestHeader("accept", "*/*");
+xhr.setRequestHeader("accept-language", "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7");
+xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+// WARNING: Cookies will be stripped away by the browser before sending the request.
+xhr.setRequestHeader("cookie", "bulletABCheck=hide; discountAB=new; chatAB60=show; ebdate=0; tbSource=1008; abInfoCardRate=45; chatBotRate=2; _gcl_au=1.1.701202447.1700087275; mcfChannels=(direct); mcfSourceDetails=(direct); mcfDates=20231116; mcfLastInteraction=(direct) | (direct); mcfFirstInteraction=(direct) | (direct); split=1; ua_tatilbudur_cookie=GA1.2.169060584.1700087274; _fbp=fb.1.1700087275284.1264496728; _ym_uid=1646159038812959600; _ym_d=1700087276; enh_visitor_session=94b79534d5419e48dbaae2da48fbe718; enh_source=; _tt_enable_cookie=1; _ttp=YEBpmG36E_a7We9oIN2MsBVKzLV; _hjSessionUser_1231888=eyJpZCI6IjkyOTA1MDlkLTAwOGMtNTc1OC1hY2M1LWQ1MTUyMDBhNjA0YyIsImNyZWF0ZWQiOjE3MDAwODcyNzYzNTMsImV4aXN0aW5nIjp0cnVlfQ==; __cf_bm=AsOd9c8F8bA1NY0oKF39LYJEFUMg3rkeRCmrLxZ5cvk-1701084440-0-AV/KomvSxH18rVGSHVwuPOvd0NgelzSFRyb9a0kHesJ/LhkszyMQof7Miqk7cjWZ7qh8kk1RXmoSddMho/jFxiU=; tbSourceCheck=1008; firstVisit=eyJpdiI6IlRXTVo1Mm1qeTlGdndHcUxIenRuT0E9PSIsInZhbHVlIjoib0tMWEJ2THZtQlp3bCtTcTBTK1ZsbmxvYk1SL0RYSzUraGpYUDFpT2NJajR3RDR2enZSRHpNV0RpNFowNnNnb0dsQUx0WkI0UVlVSDdqZndDb1gwM1E9PSIsIm1hYyI6IjQ4Y2Q1NWZkNmQ4NzVkNTIwYTRiYjM0YjJmYjRhODE2YjI1MmJjMTIyMTRhOWIzNWU1ZDg5ZmJhNjkzNmU1YjUiLCJ0YWciOiIifQ%3D%3D; _gid=GA1.2.179308933.1701084540; MC_landing=1; cf_clearance=pKVHZ8bpvvFilARUlPXz6lQLsxrjC.ODL31H54hq5Rg-1701084443-0-1-35bc1831.4ae57329.71bb76bb-0.2.1701084443; ua_tatilbudur_cookie_gid=GA1.2.753642900.1701084540; _ga=GA1.1.169060584.1700087274; _hjIncludedInSessionSample_1231888=1; _hjSession_1231888=eyJpZCI6IjU0NTBmY2JmLWE5NGMtNDVjYi05ZTRlLTRjMGFmYWY3NjRkMCIsImNyZWF0ZWQiOjE3MDEwODQ1NDExMzEsImluU2FtcGxlIjp0cnVlLCJzZXNzaW9uaXplckJldGFFbmFibGVkIjp0cnVlfQ==; _hjAbsoluteSessionInProgress=1; _ym_isad=2; _clck=90yivt%7C2%7Cfh2%7C0%7C1414; scarab.visitor=%22339A81EDB5597EE2%22; mp_c261691ff026414ae8f6d2dbc44972d8_mixpanel=%7B%22distinct_id%22%3A%20%22%24device%3A18bd5191f051016-023b08cf9f8378-26031051-1fa400-18bd5191f051016%22%2C%22%24device_id%22%3A%20%2218bd5191f051016-023b08cf9f8378-26031051-1fa400-18bd5191f051016%22%2C%22%24initial_referrer%22%3A%20%22%24direct%22%2C%22%24initial_referring_domain%22%3A%20%22%24direct%22%7D; _uetsid=2997afa08d1811ee85fe2bb464c42a58; _uetvid=049658f0ce1811ed86096706834ec57c; cto_bundle=rBu_KF9oRmh1aFJKdGFVcWJqJTJGOCUyQlc5QUlQVXc5ME50aTVLUFd2NnVLY1VzWk5GalhDRnVBQnR3OVM1RThjOFloTGE1cE1tVk95JTJCVHhYRWExZm5IdCUyQlVReW9KYm9lalZJUVg2OEN1NTRKV0s4TjR6endRUjR6dVZDRnRESUpmQ1poampVaWpsa3VEV1F2UHpXNjJMNiUyRnc1TXpUTSUyRnZhWWZlbXNkVWlTYnklMkZtTXpRdzJDYUNpWXN2dENZZWdodU0lMkZreFpzS242QmdyNFBmSG1LNjRSSllmcHBKdjhXRHhibFF3VG9vJTJCaXJ3VVNBSUlwazR2dG9EUDZYRjFLbjhZcXM3UFMzQTc3UEdVSGttNmJtJTJCVHBjUXhMbFJVajlKZnk2NGFVMGNnV2FsOWwyZCUyRmRDSWtZUnBacUJDUEI3JTJCZ1VPaUQwTA; _clsk=gqnjaz%7C1701084927529%7C1%7C1%7Cp.clarity.ms%2Fcollect; _dc_gtm_UA-16158463-4=1; _ga_LVW3XC124E=GS1.1.1701084540.9.1.1701084985.60.0.0; lastVisitedList=eyJpdiI6Ik0yMElHbDZvTEVkYk1PY2ZTWi83ekE9PSIsInZhbHVlIjoiNzFVSVNoK216NEVROUhxdXN0T21FRlhFVGRsVWNHSy9obVZyQ0ZvTTRVZkNJS2xKUkM3S2JObHh6QWlhSDB5NjZ5V3hYeWIzS1o5K1hZRkhERUpHK2s2TWhpR0VUeGNUMklGb2hydFdLM009IiwibWFjIjoiZWZlYTJlYjVjN2RjN2U4OGYyYjM2MTYwYzFmNTAwOTM0ZDI1MjE2MWUwNDEyNGM1YmU0NDY1NWJhYzlmNDRmNSIsInRhZyI6IiJ9; XSRF-TOKEN=eyJpdiI6IlJhRmhXTnlBR0s5SlZMd2kwZlJrSVE9PSIsInZhbHVlIjoiNzJRQm45eG9PMk56WUlrOWVyUml2RzcvWklHMWRGRk1DOWpvVkhQRlBTcFZxNEVRYVpLZmlYSlUvSEl4amVnWHN0c0ZHbzU1eGRoRnZYdmpaaFBkVUZGdXN6djBXbi92Sk5waVJzVmNJRk04YzNjSHBhKzQwSkoxSDlTZFl4YmUiLCJtYWMiOiI0MTYyNDQ4OTQ3YWE2ZGEzNDYzMjQzOWRlMTAzMTE0ZTZmZmYxZTFmOGE1OWJkNjU4ZjM1NmI1YmU2NmQzMjE0IiwidGFnIjoiIn0%3D; tbweb=eyJpdiI6IkpSemVjcWtPM000anBtenpwN0xFeGc9PSIsInZhbHVlIjoiQzl5ZlZxQllUdTNmazBwMm1zbnNDbDRXWTVlZnB0aFFhUmF1L1VPd1pGSHdnRDluOTNmU3NPTFZvWEdPSFJMUWZvczNqRnFVWTRKZVhER2s5WENTN2NoWEFhV01HNitLQS9YK1JGU3lYN3ZKSm40d1pQdU95eVczOWNzK3R4LysiLCJtYWMiOiI2MjVmZjY4ODljMmU0YWJjNGM1MDMyOWQwMzM4MTc4ODA4ZTEyMjNjOGM3NWYzMjhkM2U4MTE0ZWYzM2UzZTdjIiwidGFnIjoiIn0%3D");
+xhr.setRequestHeader("origin", "https://www.tatilbudur.com");
+xhr.setRequestHeader("referer", "https://www.tatilbudur.com/susesi-luxury-resort");
+xhr.setRequestHeader("sec-ch-ua", "\"Google Chrome\";v=\"119\", \"Chromium\";v=\"119\", \"Not?A_Brand\";v=\"24\"");
+xhr.setRequestHeader("sec-ch-ua-mobile", "?0");
+xhr.setRequestHeader("sec-ch-ua-platform", "\"Windows\"");
+xhr.setRequestHeader("sec-fetch-dest", "empty");
+xhr.setRequestHeader("sec-fetch-mode", "cors");
+xhr.setRequestHeader("sec-fetch-site", "same-origin");
+xhr.setRequestHeader("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36");
+xhr.setRequestHeader("x-csrf-token", "GtoGoL4Q8PPGXKKWJk3EeJw6WXIH4YIcxfULQHPp");
+xhr.setRequestHeader("x-requested-with", "XMLHttpRequest");
+
+xhr.send(data);
+</script>
+</html>
